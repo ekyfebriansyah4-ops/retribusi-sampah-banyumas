@@ -40,6 +40,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('admin')->group(functi
     Route::put('/users/{id}/golongan', [AdminUserController::class, 'updateGolongan']);
     Route::put('/users/{id}/nonaktifkan', [AdminUserController::class, 'nonaktifkan']);
     Route::put('/users/{id}/aktifkan', [AdminUserController::class, 'aktifkan']);
+    Route::get('/dashboard', [AdminTagihanController::class, 'dashboard']);
 
     Route::get('/tagihan', [AdminTagihanController::class, 'index']);
     Route::post('/tagihan/generate', [AdminTagihanController::class, 'generate']);

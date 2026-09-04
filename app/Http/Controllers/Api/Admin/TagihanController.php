@@ -101,4 +101,26 @@ class TagihanController extends Controller
 
         return response()->json(['message' => 'Pembayaran diverifikasi', 'tagihan' => $tagihan->load('detailTagihan')]);
     }
+
+    public function dashboard()
+{
+    $totalTagihan = Tagihan::count();
+    $totalBelumLunas = Tagihan::where('status', 'belum_lunas')->count();
+    $totalLunas = Tagihan::where('status', 'lunas')->count();
+    $totalPemasukan = Tagihan::where('status', 'lunas')->sum('jumlah');
+    $totalPiutang = Tagihan::where('status', 'belum_lunas')->sum('jumlah');
+
+    $totalWarga = User::where('role', 'user')->count();
+    $totalWargaAktif = User::where('role', 'user')->where('status', 'aktif')->count();
+
+    return response()->json([
+        'total_tagihan' => $totalTagihan,
+        'total_belum_lunas' => $totalBelumLunas,
+        'total_lunas' => $totalLunas,
+        'total_pemasukan' => $totalPemasukan,
+        'total_piutang' => $totalPiutang,
+        'total_warga' => $totalWarga,
+        'total_warga_aktif' => $totalWargaAktif,
+    ]);
+}
 }
