@@ -4,13 +4,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;   
 use App\Http\Controllers\Api\AuthController;
 
-use App\Http\Controllers\Api\TagihanController;
+use App\Http\Controllers\Api\GolonganTarifController;
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/retribusi/tagihan', [TagihanController::class, 'index']);
-    Route::get('/retribusi/tagihan/belum-lunas', [TagihanController::class, 'belumLunas']);
-    Route::get('/retribusi/tagihan/lunas', [TagihanController::class, 'lunas']);
-    Route::get('/retribusi/tagihan/{id}', [TagihanController::class, 'show']);
+    Route::get('/golongan-tarif', [GolonganTarifController::class, 'index']); // semua bisa lihat
+
+    Route::middleware('role:admin')->group(function () {
+        Route::post('/golongan-tarif', [GolonganTarifController::class, 'store']);
+        Route::put('/golongan-tarif/{id}', [GolonganTarifController::class, 'update']);
+        Route::delete('/golongan-tarif/{id}', [GolonganTarifController::class, 'destroy']);
+    });
 });
 
 // Autentikasi
