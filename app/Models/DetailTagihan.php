@@ -9,8 +9,9 @@ class DetailTagihan extends Model
     protected $table = 'detail_tagihan';
 
     protected $fillable = [
-        'tagihan_id', 'kode_bayar', 'tanggalbilling', 'tanggalexpired',
-        'nilai', 'bunga', 'truck', 'netto', 'skrd', 'tanggal_bayar', 'bukti',
+    'tagihan_id', 'kode_bayar', 'tanggalbilling', 'tanggalexpired',
+    'nilai', 'bunga', 'truck', 'netto', 'skrd', 'tanggal_bayar', 'bukti',
+    'qris_reference', 'qris_status',
     ];
 
     public function tagihan()

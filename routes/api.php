@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\TagihanController;
 use App\Http\Controllers\Api\GolonganTarifController;
 use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\Admin\TagihanController as AdminTagihanController;
+use App\Http\Controllers\Api\QrisController;
 
 // Autentikasi
 Route::post('/auth/register', [AuthController::class, 'register']);
@@ -19,6 +20,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/retribusi/tagihan/belum-lunas', [TagihanController::class, 'belumLunas']);
     Route::get('/retribusi/tagihan/lunas', [TagihanController::class, 'lunas']);
     Route::get('/retribusi/tagihan/{id}', [TagihanController::class, 'show']);
+    Route::post('/qris/create', [QrisController::class, 'create']);
+    Route::post('/qris/simulasi-bayar/{reference}', [QrisController::class, 'simulasiBayar']);
 
     // Golongan Tarif — semua bisa lihat
     Route::get('/golongan-tarif', [GolonganTarifController::class, 'index']);
