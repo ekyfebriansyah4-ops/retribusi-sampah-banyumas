@@ -71,4 +71,32 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Logout berhasil']);
     }
+    public function loginCompat(Request $request)
+{
+    $request->validate([
+        'username' => 'required',
+        'password' => 'required',
+    ]);
+
+    $user = User::where('email', $request->username)->first();
+
+    if (!$user || !Hash::check($request->password, $user->password)) {
+        return response()->json(['message' => 'Username atau password salah'], 401);
+    }
+
+    if ($user->status !== 'aktif') {
+        return response()->json(['message' => 'Akun tidak aktif'], 403);
+    }
+
+    $token = $user->createToken('retribusi-token')->plainTextToken;
+
+    return response()->json([
+        'data' => [
+            'id' => $user->id,
+            'Nama' => $user->name,
+        ],
+        'access_token' => $token,
+        'refresh_token' => $token,
+    ]);
+}
 }
