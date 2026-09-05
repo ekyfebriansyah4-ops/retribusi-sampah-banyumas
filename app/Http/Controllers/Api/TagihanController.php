@@ -50,4 +50,25 @@ class TagihanController extends Controller
 
         return response()->json($tagihan);
     }
+    public function infoTagihan(Request $request, $iduser)
+{
+    if ((int) $iduser !== $request->user()->id) {
+        return response()->json(['message' => 'Akses ditolak'], 403);
+    }
+
+    $totalBelumLunas = Tagihan::where('iduser', $iduser)
+        ->where('status', 'belum_lunas')
+        ->sum('jumlah');
+
+    return response()->json([
+        'data' => [
+            [
+                'total_semua' => $totalBelumLunas,
+                'total_rdf' => 0,
+                'total_item' => 0,
+                'total_timbangan' => 0,
+            ],
+        ],
+    ]);
+}
 }

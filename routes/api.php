@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/retribusi/tagihan/{id}', [TagihanController::class, 'show']);
     Route::post('/qris/create', [QrisController::class, 'create']);
     Route::post('/qris/simulasi-bayar/{reference}', [QrisController::class, 'simulasiBayar']);
+    Route::get('/retribusi/info-tagihan/{iduser}', [TagihanController::class, 'infoTagihan']);
 
     // Golongan Tarif — semua bisa lihat
     Route::get('/golongan-tarif', [GolonganTarifController::class, 'index']);
